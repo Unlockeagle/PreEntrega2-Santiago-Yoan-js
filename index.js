@@ -37,7 +37,7 @@ function creaProducto() {
 
 function mostrarListaProductos() {
   for (let i = 0; i < listaProductos.length; i++) {
-    let productos = listaProductos[i++];
+    let productos = listaProductos[i];
 
     alert(
       "============================================" +
@@ -74,7 +74,7 @@ do {
         while (res == "s") {
           creaProducto();
 
-          res = prompt("desea crear otro producto?");
+          res = prompt("Desea crear otro producto? (S / N)");
         }
       } while (res == "s");
       break;
