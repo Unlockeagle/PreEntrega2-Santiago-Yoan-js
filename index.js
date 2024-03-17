@@ -70,48 +70,65 @@ function registrarCompra() {
 
 let op;
 do {
-  op = prompt(
-    `=============MODULO DE COMPRA============= \nSeleccione una opcion:  \n1- Ver lista de productos en Inv \n2- Ver el detalle de un producto \n3- Actualiza el precio \n4- Crea un nuevo producto \n5- Registra una nueva Compra \n0- Para regresar`
-  );
-  //menu del departamento de compra
+  op = prompt(`Opciones: 
+  \n1- Modulo de compra \n2- Modulo de Ventas`);
 
   switch (op) {
     case "1":
-      //ver lista de productos en inventario
-      chekout(inventario);
+      do {
+        op = prompt(
+          `=============MODULO DE COMPRA============= \nSeleccione una opcion:  \n1- Ver lista de productos en Inv \n2- Ver el detalle de un producto \n3- Actualiza el precio \n4- Crea un nuevo producto \n5- Registra una nueva Compra \n0- Para regresar`
+        );
+        //menu del departamento de compra
+
+        switch (op) {
+          case "1":
+            //ver lista de productos en inventario
+            chekout(inventario);
+
+            break;
+          case "2":
+            //ver detalles de un producto
+            buscarUnProducto(inventario);
+
+            break;
+          case "3":
+            //Actualiza Precio de un producto
+            updatePrice();
+
+            break;
+          case "4":
+            //Crea un producto nuevo
+            crearProducto();
+            chekout(inventario);
+          case "5":
+            //Crea una compra
+            registrarCompra();
+
+            break;
+          case "6":
+            //Crea una venta
+            registrarVenta();
+
+            break;
+          case "7":
+            //Actualiza Precio de un producto
+            updatePrice();
+
+            break;
+
+          default:
+            break;
+        }
+      } while (op >= "1");
 
       break;
     case "2":
-      //ver detalles de un producto
-      buscarUnProducto(inventario);
-
-      break;
-    case "3":
-      //Actualiza Precio de un producto
-      updatePrice();
-
-      break;
-    case "4":
-      //Crea un producto nuevo
-      crearProducto();
-      chekout(inventario);
-    case "5":
-      //Crea una compra
-      registrarCompra();
-
-      break;
-    case "6":
-      //Crea una venta
-      registrarVenta();
-
-      break;
-    case "7":
-      //Actualiza Precio de un producto
-      updatePrice();
+      alert("Ventas");
 
       break;
 
     default:
       break;
   }
-} while (op);
+} while (op === "0");
