@@ -8,9 +8,9 @@ class Productos {
 }
 
 //Productos del inventario
-const arroz = new Productos("Arroz", 20, 3200);
-const pasta = new Productos("Pasta", 5, 5000);
-const harina = new Productos("Harina", 40, 400);
+const arroz = new Productos("arroz", 20, 3200);
+const pasta = new Productos("pasta", 5, 5000);
+const harina = new Productos("harina", 40, 400);
 let inventario;
 inventario = [arroz, pasta, harina];
 
@@ -67,6 +67,41 @@ function registrarCompra() {
     }
   });
 }
+//////////////////////////////////Modulo de Ventas////////////////////////////////
+
+// Constructor de productos en el carrito
+class Skus {
+  constructor(sNombre, sCant, sPrecio) {
+    this.nombre = sNombre;
+    this.cant = sCant;
+    this.precio = sPrecio;
+  }
+}
+
+let carrito;
+const platano = new Skus("platano", 20, 2000);
+const caraotas = new Skus("caraotas", 30, 3000);
+carrito = [platano, caraotas];
+console.log(carrito);
+
+function addVenta(productos) {
+  let mensaje = " ";
+  inventario.map((producto) => {
+    mensaje +=
+      producto.nombre + " ...................... " + producto.precio + " $\n";
+  });
+  prompt(`Seleciona un producto \nProductos:           Precio:\n${mensaje}`);
+}
+
+function chekout(carrito) {
+  let mensaje = " ";
+  carrito.map(
+    (carrito) =>
+      (mensaje += ` \nNombre: ${carrito.nombre} \nCant: ${carrito.cant} \nPrecio:${carrito.precio} \n______________________`)
+  );
+  alert("Disponible para la venta:" + mensaje);
+  console.log(mensaje);
+}
 
 let op;
 do {
@@ -77,7 +112,7 @@ do {
     case "1":
       do {
         op = prompt(
-          `=============MODULO DE COMPRA============= \nSeleccione una opcion:  \n1- Ver lista de productos en Inv \n2- Ver el detalle de un producto \n3- Actualiza el precio \n4- Crea un nuevo producto \n5- Registra una nueva Compra \n0- Para regresar`
+          `============= MODULO DE COMPRA ============= \nSeleccione una opcion:  \n1- Ver lista de productos en Inv \n2- Ver el detalle de un producto \n3- Actualiza el precio \n4- Crea un nuevo producto \n5- Registra una nueva Compra \n0- Para regresar`
         );
         //menu del departamento de compra
 
@@ -124,7 +159,25 @@ do {
 
       break;
     case "2":
-      alert("Ventas");
+      do {
+        op = prompt(
+          `============= MODULO DE VENTAS ============= \nSeleccione una opcion: \n1- Agregar productos al carrito \n2- Ver productos en el carrito \n3- Pagar \n0- Para regresar`
+        );
+
+        switch (op) {
+          case "1":
+            addVenta();
+
+            break;
+          case "2":
+            chekout(carrito);
+
+            break;
+
+          default:
+            break;
+        }
+      } while (op >= "1");
 
       break;
 
