@@ -26,20 +26,24 @@ function addVenta() {
   let indexProd = Number(
     prompt(`Seleciona un producto \nProductos:           Precio:\n${mensaje}`)
   );
-  let cantSku = Number(prompt("Cantidad?"));
-  let nomSku;
-  let preSku;
-  let cantExistente;
-  buscarSku = inventario.findIndex((index) => {
-    index === indexProd;
-    nomSku = inventario[indexProd].nombre;
-    preSku = inventario[indexProd].precio;
-    cantExistente = inventario[indexProd].cant;
-  });
-  if (cantSku < cantExistente) {
-    inventario[indexProd].restarProd(cantSku);
-    return carrito.push(new Skus(nomSku, cantSku, preSku));
-  } else alert("Existencia insuficiente");
+  if (!isNaN(indexProd) && indexProd >= 0) {
+    let cantSku = Number(prompt("Cantidad?"));
+    let nomSku;
+    let preSku;
+    let cantExistente;
+    buscarSku = inventario.findIndex((index) => {
+      index === indexProd;
+      nomSku = inventario[indexProd].nombre;
+      preSku = inventario[indexProd].precio;
+      cantExistente = inventario[indexProd].cant;
+    });
+    if (cantSku <= cantExistente) {
+      inventario[indexProd].restarProd(cantSku);
+      return carrito.push(new Skus(nomSku, cantSku, preSku));
+    } else alert("Existencia insuficiente");
+  } else {
+    alert("Ingrese una opcion valida!");
+  }
 }
 
 let op;

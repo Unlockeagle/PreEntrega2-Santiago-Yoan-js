@@ -1,12 +1,4 @@
 //////////////////////////////////Modulo de Ventas////////////////////////////////
-function addVenta(productos) {
-  let mensaje = " ";
-  inventario.map((producto) => {
-    mensaje +=
-      producto.nombre + " ...................... " + producto.precio + " $\n";
-  });
-  prompt(`Seleciona un producto \nProductos:           Precio:\n${mensaje}`);
-}
 
 function chekout(carrito) {
   let mensaje = " ";
