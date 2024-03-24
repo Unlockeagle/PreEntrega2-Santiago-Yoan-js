@@ -74,6 +74,7 @@ do {
           case "4":
             //Crea un nuevo producto // bug
             crearProducto();
+            break;
 
           case "5":
             //Crea una compra
