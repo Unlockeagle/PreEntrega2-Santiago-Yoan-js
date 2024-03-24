@@ -1,12 +1,3 @@
-//constructor de productos
-class Productos {
-  constructor(sNombre, sCant, sPrecio) {
-    this.nombre = sNombre;
-    this.cant = sCant;
-    this.precio = sPrecio;
-  }
-}
-
 //Productos del inventario
 const arroz = new Productos("arroz", 20, 3200);
 const pasta = new Productos("pasta", 5, 5000);
@@ -14,93 +5,41 @@ const harina = new Productos("harina", 40, 400);
 let inventario;
 inventario = [arroz, pasta, harina];
 
-//Funcion que crea los productos
-function crearProducto() {
-  let nombre = prompt("Ingrese nombre del producto a crear");
-  let cant = Number(prompt("Ingrese cantidad de productos a crear"));
-  let precio = Number(prompt("Ingrese precio del producto a crear"));
-
-  return inventario.push(new Productos(nombre, cant, precio));
-}
-
-//Busca un producto por su nombre
-let buscarUn;
-function buscarUnProducto(inventario) {
-  let prod = prompt(`"Que producto desea ver?"`);
-  buscarUn = inventario.find((elem) => elem.nombre === prod);
-  alert(
-    `Nombre: ${buscarUn.nombre} \nCant: ${buscarUn.cant} \nPrecio: ${buscarUn.precio}`
-  );
-}
-
-//Aqui puedo unir las 2 funciones y con un if
-//Muestra todos los productos dentro del inventario
-function chekout(inventario) {
-  let mensaje = " ";
-  inventario.map(
-    (inventario) =>
-      (mensaje += ` \nNombre: ${inventario.nombre} \nCant: ${inventario.cant} \nPrecio:${inventario.precio} \n______________________`)
-  );
-  alert("Inventarios disponible:" + mensaje);
-  console.log(mensaje);
-}
-
-let upPrice;
-function updatePrice() {
-  let prod = prompt("Cual Producto desea modificara?");
-  let precioNuevo = Number(prompt("Ingrese el nuevo precio"));
-  upPrice = inventario.find((producto) => {
-    if (producto.nombre === prod) {
-      return (producto.precio = precioNuevo);
-    }
-  });
-}
-
-//regista la Compra de productos y aumenta las cantidades, le puedo agregar una actualizacion de precio
-let addCompra;
-function registrarCompra() {
-  let prod = prompt("Ingrese un producto comprado");
-  let cantidad = Number(prompt("Ingrese la cantidad comprada"));
-  addCompra = inventario.find((producto) => {
-    if (producto.nombre === prod) {
-      return (producto.cant += cantidad);
-    }
-  });
-}
-//////////////////////////////////Modulo de Ventas////////////////////////////////
-
-// Constructor de productos en el carrito
-class Skus {
-  constructor(sNombre, sCant, sPrecio) {
-    this.nombre = sNombre;
-    this.cant = sCant;
-    this.precio = sPrecio;
-  }
-}
-
 let carrito;
 const platano = new Skus("platano", 20, 2000);
 const caraotas = new Skus("caraotas", 30, 3000);
 carrito = [platano, caraotas];
-console.log(carrito);
 
-function addVenta(productos) {
+let buscarSku;
+function addVenta() {
   let mensaje = " ";
-  inventario.map((producto) => {
+  inventario.map((producto, index) => {
     mensaje +=
-      producto.nombre + " ...................... " + producto.precio + " $\n";
+      index +
+      " " +
+      producto.nombre +
+      " ...................... " +
+      producto.precio +
+      " $\n";
   });
-  prompt(`Seleciona un producto \nProductos:           Precio:\n${mensaje}`);
-}
 
-function chekout(carrito) {
-  let mensaje = " ";
-  carrito.map(
-    (carrito) =>
-      (mensaje += ` \nNombre: ${carrito.nombre} \nCant: ${carrito.cant} \nPrecio:${carrito.precio} \n______________________`)
+  let indexProd = Number(
+    prompt(`Seleciona un producto \nProductos:           Precio:\n${mensaje}`)
   );
-  alert("Disponible para la venta:" + mensaje);
-  console.log(mensaje);
+  let cantSku = Number(prompt("Cantidad?"));
+  let nomSku;
+  let preSku;
+  let cantExistente;
+  buscarSku = inventario.findIndex((index) => {
+    index === indexProd;
+    nomSku = inventario[indexProd].nombre;
+    preSku = inventario[indexProd].precio;
+    cantExistente = inventario[indexProd].cant;
+  });
+  if (cantSku < cantExistente) {
+    inventario[indexProd].restarProd(cantSku);
+    return carrito.push(new Skus(nomSku, cantSku, preSku));
+  } else alert("Existencia insuficiente");
 }
 
 let op;
@@ -119,7 +58,7 @@ do {
         switch (op) {
           case "1":
             //ver lista de productos en inventario
-            chekout(inventario);
+            chekoutInv(inventario);
 
             break;
           case "2":
@@ -133,9 +72,9 @@ do {
 
             break;
           case "4":
-            //Crea un producto nuevo
+            //Crea un nuevo producto // bug
             crearProducto();
-            chekout(inventario);
+
           case "5":
             //Crea una compra
             registrarCompra();
@@ -166,11 +105,19 @@ do {
 
         switch (op) {
           case "1":
+            // Agrega un sku al carrito
             addVenta();
 
             break;
           case "2":
+            // Muestra el total de los skus en el carrito
             chekout(carrito);
+
+            break;
+          case "3":
+            // Muestra el total de los skus en el carrito
+            //Luego vacia el carrito
+            pagar();
 
             break;
 

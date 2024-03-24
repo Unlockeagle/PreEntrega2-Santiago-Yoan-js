@@ -1,24 +1,40 @@
-// let carrito;
+//////////////////////////////////Modulo de Ventas////////////////////////////////
+function addVenta(productos) {
+  let mensaje = " ";
+  inventario.map((producto) => {
+    mensaje +=
+      producto.nombre + " ...................... " + producto.precio + " $\n";
+  });
+  prompt(`Seleciona un producto \nProductos:           Precio:\n${mensaje}`);
+}
 
-// //Realiza una venta restando al inventario
-// let subtractVenta;
-// function registrarVenta() {
-//   let prod = prompt("Ingrese a Vender");
-//   let cantidad = Number(prompt("Ingrese a Vender"));
-//   subtractVenta = inventario.find((producto) => {
-//     if (producto.nombre === prod) {
-//       return (producto.cant -= cantidad);
-//     }
-//   });
-// }
+function chekout(carrito) {
+  let mensaje = " ";
+  let subTotal = 0;
+  carrito.forEach((producto) => {
+    let totalProducto = producto.cant * producto.precio;
+    subTotal += totalProducto;
+  }),
+    carrito.map(
+      (carrito) =>
+        (mensaje += ` \nNombre: ${carrito.nombre} \nCant: ${
+          carrito.cant
+        }    Precio: $${carrito.precio} = Total: ${
+          carrito.cant * carrito.precio
+        }\n______________________`)
+    );
+  alert(
+    `*Factura de Venta 
+      ${mensaje} 
+      \nSubTotal:  ${subTotal} 
+      \n    16% IVA: ${subTotal * 0.16} 
+      \n        Total: ${subTotal * 1.16}`
+  );
+  console.log(mensaje);
+}
 
-// //Muestra productos dentro del carrito
-// function chekout(carrito) {
-//   let mensaje = " ";
-//   carrito.map(
-//     (carrito) =>
-//       (mensaje += ` \nNombre: ${carrito.nombre} \nCant: ${carrito.cant} \nPrecio:${carrito.precio} \n______________________`)
-//   );
-//   alert("Inventarios disponible:" + mensaje);
-//   console.log(mensaje);
-// }
+// Falta calcular el total de toda la Venta
+function pagar() {
+  chekout(carrito);
+  carrito = [];
+}
